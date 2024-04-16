@@ -6,3 +6,4 @@ export { list_check_runs_for_commit } from './list-check-runs-for-commit';
 export { list_commit_status } from './list-commit-status';
 export { merge_pull_request } from './merge-pull-request';
 export { retry_failed_build } from './retry-failed-build';
+export { trigger_rebase } from './trigger-rebase';

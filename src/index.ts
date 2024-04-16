@@ -11,6 +11,7 @@ import {
 	list_commit_status,
 	merge_pull_request,
 	retry_failed_build,
+	trigger_rebase,
 } from './helpers';
 import { CheckRuns, PrStatus } from './types';
 import { find_ticket } from './helpers/find-ticket';
@@ -43,6 +44,10 @@ async function main() {
 	const pull_requests = await get_dependabot_pull_requests(octokit);
 	if (pull_requests.length > 0) {
 		for (const pr of pull_requests) {
+			if (pr?.mergeable === false && pr?.mergeable_state === 'dirty') {
+				await trigger_rebase(octokit, pr.number);
+				continue;
+			}
 			const checks = await list_check_runs_for_commit(octokit, pr.head.sha);
 			const statuses = await list_commit_status(octokit, pr.head.sha);
 			if (do_checks_pass(checks) && do_statuses_pass(statuses)) {
@@ -79,7 +84,7 @@ async function main() {
 						console.error(
 							`Project name could not be determined from context: ${failures[0]!.context}`,
 						);
-						return;
+						continue;
 					}
 
 					try {
