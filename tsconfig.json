@@ -1,0 +1,42 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"strictPropertyInitialization": false,
+		"noImplicitThis": true,
+		"alwaysStrict": true,
+		"noUnusedLocals": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"module": "commonjs",
+		"esModuleInterop": true,
+		"target": "es2021",
+		"noImplicitAny": true,
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"outDir": "lib",
+		"baseUrl": ".",
+		"allowJs": true,
+		"experimentalDecorators": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"allowUnusedLabels": false,
+		"allowUnreachableCode": false,
+		"noImplicitOverride": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedParameters": true,
+		"importsNotUsedAsValues": "preserve",
+		"resolveJsonModule": true,
+		"paths": {
+			"*": ["node_modules/*", "src/types/*"]
+		},
+		"lib": ["es2021"]
+	},
+
+	"include": ["src/**/*", "swagger/**/*"],
+	"exclude": ["node_modules", "lib", "test/**/*.js", "providers/cdl.js"],
+	"ts-node": {
+		"transpileOnly": true
+	}
+}

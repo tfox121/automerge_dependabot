@@ -1,26 +1,41 @@
 {
-  "name": "mergeprs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "debug": "npx nodemon index.js --inspect",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lintAll": "npx eslint ."
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@octokit/rest": "^20.0.2",
-    "dotenv": "^16.4.5",
-    "node-fetch": "^3.3.2"
-  },
-  "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
-    "prettier": "^3.2.5"
-  }
+	"name": "mergeprs",
+	"version": "1.0.0",
+	"description": "",
+	"main": "lib/index.js",
+	"engines": {
+		"node": ">=20.0.0",
+		"npm": ">=10.0.0"
+	},
+	"scripts": {
+		"build": "rimraf lib/ && tsc",
+		"start": "node lib/index.js",
+		"debug": "nodemon --watch 'src/**/*' -e ts --exec 'ts-node' src/index.ts",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lintAll": "npx eslint .",
+		"fix": "eslint --quiet --fix . --ext .js,.ts",
+		"pre-commit": "lint-staged",
+		"format": "prettier --write '**/*.{ts,js,yml}'"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@aws-sdk/client-codebuild": "^3.554.0",
+		"@octokit/rest": "^20.1.0",
+		"dotenv": "^16.4.5",
+		"lodash.clonedeep": "^4.5.0",
+		"node-fetch": "^3.3.2"
+	},
+	"devDependencies": {
+		"@types/lodash.clonedeep": "^4.5.9",
+		"@types/node": "^20.12.7",
+		"eslint": "^8.57.0",
+		"eslint-config-airbnb": "^19.0.4",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-import": "^2.29.1",
+		"prettier": "^3.2.5",
+		"rimraf": "^5.0.5",
+		"ts-node": "^10.9.2",
+		"typescript": "^4.9.5"
+	}
 }
