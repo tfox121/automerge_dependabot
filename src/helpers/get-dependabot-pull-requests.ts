@@ -15,8 +15,9 @@ export async function get_dependabot_pull_requests(octokit: Octokit) {
 
 		return response.data.filter(
 			(pr) =>
-				// pr.assignee?.login === GITHUB_USERNAME &&
-				pr.user?.type === 'Bot' && pr.user.login.includes('dependabot'),
+				pr.assignee?.login === GITHUB_USERNAME &&
+				pr.user?.type === 'Bot' &&
+				pr.user.login.includes('dependabot'),
 		);
 	} catch (err) {
 		console.error('Failed to retrieve pull requests:', err);
