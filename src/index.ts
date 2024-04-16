@@ -17,7 +17,7 @@ import { find_ticket } from './helpers/find-ticket';
 import { add_ticket_description } from './helpers/add-ticket-description';
 import { create_ticket } from './helpers/create-ticket';
 
-const { GITHUB_PERSONAL_ACCESS_TOKEN } = process.env;
+const { GITHUB_PERSONAL_ACCESS_TOKEN, JIRA_EMAIL_ADDRESS, JIRA_TOKEN } = process.env;
 
 function sleep(ms: number) {
 	return new Promise((resolve) => {
@@ -48,7 +48,8 @@ async function main() {
 			if (do_checks_pass(checks) && do_statuses_pass(statuses)) {
 				console.log('PASSING:', pr.title, 'Merging...');
 				const merge = await merge_pull_request(octokit, pr.number);
-				if (merge) {
+				// For Jira ticket creation, add your credentials in .env
+				if (merge && JIRA_EMAIL_ADDRESS && JIRA_TOKEN) {
 					try {
 						const project_name = get_project_name(statuses);
 						if (!project_name) throw new Error('No valid project name found');
