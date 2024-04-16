@@ -47,8 +47,8 @@ async function main() {
 			const statuses = await list_commit_status(octokit, pr.head.sha);
 			if (do_checks_pass(checks) && do_statuses_pass(statuses)) {
 				console.log('PASSING:', pr.title, 'Merging...');
-				// const merge = await merge_pull_request(octokit, pr.number);
-				if (true) {
+				const merge = await merge_pull_request(octokit, pr.number);
+				if (merge) {
 					try {
 						const project_name = get_project_name(statuses);
 						if (!project_name) throw new Error('No valid project name found');
@@ -87,11 +87,11 @@ async function main() {
 							project_name,
 							pr.head.sha,
 						);
-						// await retry_failed_build(client, project_name, failed_build);
+						await retry_failed_build(client, project_name, failed_build);
 					} catch (err) {
 						console.log('Failed find build for project:', project_name, err);
 						console.log('Retrying build with PR SHA only:');
-						// await retry_failed_build(client, project_name, undefined, pr.head.sha);
+						await retry_failed_build(client, project_name, undefined, pr.head.sha);
 					}
 				}
 				console.log('\n');
